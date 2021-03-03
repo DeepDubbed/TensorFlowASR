@@ -107,6 +107,7 @@ with strategy.scope():
     contextnet = ContextNet(**config.model_config, vocabulary_size=text_featurizer.num_classes)
     contextnet._build(speech_featurizer.shape, prediction_shape=text_featurizer.prepand_shape, batch_size=global_batch_size)
     contextnet.summary(line_length=120)
+    contextnet.add_featurizers(speech_featurizer, text_featurizer)
 
     optimizer = tf.keras.optimizers.Adam(
         TransformerSchedule(
